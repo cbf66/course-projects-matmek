@@ -4,10 +4,12 @@ import numpy as np
 
 
 def mesh_function(f: Callable[[float], float], t: np.ndarray) -> np.ndarray:
+    return f(t)
     raise NotImplementedError
 
 
 def func(t: float) -> float:
+    return [np.exp(-x) if (x < 4.0) else np.exp(-3*x) for x in t]
     raise NotImplementedError
 
 
