@@ -50,7 +50,8 @@ def test_solver_three_steps():
     theta, a, I, dt = 0.8, 2, 0.1, 0.8
     u_by_hand = np.array([I, 0.0298245614035, 0.00889504462912, 0.00265290804728])
 
-    Nt = 3  # number of time steps
+    if Nt is None:
+        Nt = 3  # number of time steps
     u, _ = solver(I, a, Nt * dt, dt, theta)
 
     tol = 1e-12  # tolerance for comparing floats
