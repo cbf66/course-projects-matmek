@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import matplotlib.pyplot as plt
+from ipywidgets import interact, FloatSlider, fixed
 import numpy as np
 
 
@@ -42,7 +43,21 @@ def plot_numerical_and_exact(theta: float, I: float, a: float, T: float, dt: flo
     plt.xlabel("t")
     plt.ylabel("u")
     plt.title(f"theta={theta:g}, dt={dt:g}")
-    plt.savefig(f"plot_{theta}_{dt:g}.png")
+    plt.show()
+
+    # plt.savefig(f"plot_{theta}_{dt:g}.png")
+
+def interact_plot_numerical_and_exact(I: float = 0.1, a: float = 0.8, dt: float = 0.8):
+    """Interactively compare the numerical and exact solution in a plot."""
+    interact(
+        plot_numerical_and_exact,
+        theta=FloatSlider(min=0, max=1, step=0.1, value=0.5),
+        I=fixed(I),
+        a=fixed(a),
+        T=FloatSlider(min=0, max=50, step=1, value=5),
+        dt=fixed(dt)
+    )
+
 
 
 def test_solver_three_steps():
@@ -58,3 +73,6 @@ def test_solver_three_steps():
     diff = np.abs(u - u_by_hand).max()
     success = diff < tol
     assert success
+
+if __name__ == "__main__":
+    interact_plot_numerical_and_exact()
